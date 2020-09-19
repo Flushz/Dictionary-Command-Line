@@ -20,7 +20,7 @@ public class DictionaryManagement extends Dictionary {
             System.out.print("Explanation in Vietnamese: ");
             newWord.setWord_explain(input.nextLine());
 
-            dictionary.add(newWord);
+            dictionary.put(newWord.getWord_target(), newWord.getWord_explain());
         }
     }
 
@@ -37,9 +37,8 @@ public class DictionaryManagement extends Dictionary {
                 word.setWord_target(splittedWords[ 0 ].trim());
                 word.setWord_explain(splittedWords[ 1 ].trim());
 
-                dictionary.add(word);
+                dictionary.put(word.getWord_target(), word.getWord_explain());
             }
-
             inputFile.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
@@ -48,17 +47,26 @@ public class DictionaryManagement extends Dictionary {
     }
 
     public static void dictionaryLookup() {
-        System.out.println("Search for: ");
+        System.out.print("Search: ");
+        String needWord = input.next();
+        System.out.println(dictionary.getOrDefault(needWord, "No matched word found!"));
+    }
+
+    public static void dictionaryEdit() {
+        System.out.print("Search: ");
+        String neededWord = input.next();
+        input.nextLine();
+        System.out.print("Meaning: ");
+        String meaning = input.nextLine();
+
+        dictionary.put(neededWord, meaning);
+    }
+
+    public static void dictionaryDelete() {
+        System.out.print("Search: ");
         String neededWord = input.next();
 
-        for (Word word : dictionary) {
-            if (word.getWord_target().equals(neededWord)) {
-                System.out.println("Meaning: " + word.getWord_explain());
-                return;
-            }
-        }
-
-        System.out.println("No matched word found!");
+        dictionary.remove(neededWord);
     }
 }
 
