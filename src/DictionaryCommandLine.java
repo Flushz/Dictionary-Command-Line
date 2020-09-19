@@ -15,6 +15,25 @@ public class DictionaryCommandLine extends DictionaryManagement {
         }
     }
 
+    public static void dictionarySearcher() {
+        System.out.println("Search for: ");
+        String pattern = input.next();
+
+        boolean isExisted = false;
+        for(Map.Entry<String, String> word : dictionary.entrySet()) {
+            String mainString = word.getKey();
+
+            if(naivePatternSearch(mainString, pattern)) {
+                System.out.println(mainString);
+                isExisted = true;
+            }
+        }
+
+        if (!isExisted) {
+            System.out.println("No word found!");
+        }
+    }
+
     public static void dictionaryBasic() {
         DictionaryManagement.insertFromCommandLine();
         showAllWords();

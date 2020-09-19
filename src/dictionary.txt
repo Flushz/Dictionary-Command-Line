@@ -1,3 +1,6 @@
 dog	cho
 run	chay di
 mom	me
+travesal	duyet
+travel	du lich
+translate	dich nghia

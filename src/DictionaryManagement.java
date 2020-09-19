@@ -1,6 +1,9 @@
 import java.io.File;
-import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.Map;
+import java.util.Scanner;
 
 public class DictionaryManagement extends Dictionary {
     private static final Scanner input = new Scanner(System.in);
@@ -53,7 +56,7 @@ public class DictionaryManagement extends Dictionary {
     }
 
     public static void dictionaryEdit() {
-        System.out.print("Search: ");
+        System.out.print("Search for editing: ");
         String neededWord = input.next();
         input.nextLine();
         System.out.print("Meaning: ");
@@ -63,11 +66,55 @@ public class DictionaryManagement extends Dictionary {
     }
 
     public static void dictionaryDelete() {
-        System.out.print("Search: ");
+        System.out.print("Search for deleting: ");
         String neededWord = input.next();
 
-        dictionary.remove(neededWord);
+        if (dictionary.containsKey(neededWord)) {
+            dictionary.remove(neededWord);
+        } else {
+            System.out.println("No matched word found!");
+        }
     }
+
+    public static boolean naivePatternSearch(String mainString, String pattern) {
+        int patLength = pattern.length();
+        int mainLength = mainString.length();
+
+        for (int i = 0; i <= (mainLength - patLength); ++i) {
+            int j;
+            for (j = 0; j < patLength; ++j) {
+                if (mainString.charAt(i + j) != pattern.charAt(j)) {
+                    break;
+                }
+            }
+            if (j == patLength) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void dictionaryExportToFile() {
+        try {
+            System.out.println("Enter file name: ");
+            String fileName = input.next();
+            File exportedDict = new File(fileName);
+
+            if (exportedDict.createNewFile()) {
+                FileWriter fileWriter = new FileWriter(exportedDict);
+                for(Map.Entry<String, String> word : dictionary.entrySet()) {
+                    fileWriter.write(word.getKey() + "\t" + word.getValue() + "\n");
+                }
+                fileWriter.close();
+            } else {
+                System.out.println("Can not create new file! File already exists!");
+            }
+        } catch(IOException exception) {
+            System.out.println("An error occurred!");
+            exception.printStackTrace();
+        }
+    }
+
 }
 
 
