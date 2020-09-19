@@ -1,4 +1,6 @@
+import java.io.File;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class DictionaryManagement extends Dictionary {
     private static final Scanner input = new Scanner(System.in);
@@ -21,22 +23,34 @@ public class DictionaryManagement extends Dictionary {
             words.add(newWord);
         }
     }
-}
-/*
-    public static int compareTwoWords(Word word1, Word word2) {
-        return word1.word_target.compareTo(word2.word_target);
+
+    public static void insertFromFile() {
+        try {
+            Scanner inputFile = new Scanner(new File("D:\\Source\\Dictionary\\src\\dictionary.txt"));
+
+            while (inputFile.hasNext()) {
+                Word word = new Word();
+
+                String curLine = inputFile.nextLine();
+                String[] splittedWords = curLine.split("\t");
+
+                word.setWord_target(splittedWords[ 0 ].trim());
+                word.setWord_explain(splittedWords[ 1 ].trim());
+
+                words.add(word);
+            }
+
+            inputFile.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
+    public void dictionaryLookup() {
+        System.out.println("Search for: ");
+        String neededWord = input.next();
+    }
+}
 
-    public static void sortDictionary() {
-        for (int i = 1; i < words.size(); ++i) {
-            Word currentWord = words.get(i);
-            int hole = i;
 
-            while (hole > 0 && compareTwoWords(words.get(hole - 1), currentWord) > 0) {
-                words.set(i, words.get(i - 1));
-                hole -= 1;
-            }
-            words.set(hole, currentWord);
-        }
-    }*/

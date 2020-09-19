@@ -1,8 +1,8 @@
 import java.util.Objects;
 
 public class Word implements Comparable<Word> {
-    protected String word_target;
-    protected String word_explain;
+    private String word_target;
+    private String word_explain;
 
     public void setWord_target(String newWord) {
         this.word_target = newWord;
