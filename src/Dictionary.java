@@ -1,5 +1,5 @@
 import java.util.TreeSet;
 
 public class Dictionary {
-    protected static TreeSet<Word> words = new TreeSet<>();
+    protected static TreeSet<Word> dictionary = new TreeSet<>();
 }

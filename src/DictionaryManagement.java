@@ -20,7 +20,7 @@ public class DictionaryManagement extends Dictionary {
             System.out.print("Explanation in Vietnamese: ");
             newWord.setWord_explain(input.nextLine());
 
-            words.add(newWord);
+            dictionary.add(newWord);
         }
     }
 
@@ -37,7 +37,7 @@ public class DictionaryManagement extends Dictionary {
                 word.setWord_target(splittedWords[ 0 ].trim());
                 word.setWord_explain(splittedWords[ 1 ].trim());
 
-                words.add(word);
+                dictionary.add(word);
             }
 
             inputFile.close();
@@ -47,9 +47,18 @@ public class DictionaryManagement extends Dictionary {
         }
     }
 
-    public void dictionaryLookup() {
+    public static void dictionaryLookup() {
         System.out.println("Search for: ");
         String neededWord = input.next();
+
+        for (Word word : dictionary) {
+            if (word.getWord_target().equals(neededWord)) {
+                System.out.println("Meaning: " + word.getWord_explain());
+                return;
+            }
+        }
+
+        System.out.println("No matched word found!");
     }
 }
 
